@@ -1,0 +1,16 @@
+{
+    "name": "Take-2-Project-",
+    "version": "1.0.0",
+    "scripts": {
+        "start": "concurrently \"npm run server\" \"npm run client\"",
+        "server": "cd server && npm start",
+        "client": "cd client && npm start"
+    },
+    "devDependencies": {
+        "concurrently": "^6.0.0"
+    },
+    "dependencies": {
+        "socket.io-client": "^4.7.5",
+        "ws": "^8.18.0"
+    }
+}
