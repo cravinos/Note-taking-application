@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import Editor from './components/Editor';
+import PageCard from './components/PageCard';
 import './App.css';
 
 function App() {
@@ -74,11 +75,11 @@ function App() {
       const response = await fetch(`http://localhost:5001/api/pages/${pageId}`, {
         method: 'DELETE',
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-  
+
       setPages(pages.filter(page => page._id !== pageId));
       if (currentPage && currentPage._id === pageId) {
         setCurrentPage(null);
@@ -87,8 +88,7 @@ function App() {
       console.error("Could not delete page:", error);
     }
   };
-  
-  
+
   return (
     <div className="App">
       <Sidebar
@@ -97,7 +97,15 @@ function App() {
         onNewPage={handleNewPage}
         onDeletePage={handleDeletePage}
       />
-      <Editor currentPage={currentPage} onSave={handleSavePage} />
+      {currentPage ? (
+        <Editor currentPage={currentPage} onSave={handleSavePage} />
+      ) : (
+        <div className="page-cards-container">
+          {pages.map(page => (
+            <PageCard key={page._id} page={page} setCurrentPage={setCurrentPage} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
