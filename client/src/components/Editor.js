@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import DrawingCanvas from './DrawingCanvas';
 
-function Editor({ currentPage, onSave }) {
+function Editor({ currentPage, onSave, saveDrawing }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [isDrawing, setIsDrawing] = useState(false);
 
   useEffect(() => {
     if (currentPage) {
@@ -23,6 +25,15 @@ function Editor({ currentPage, onSave }) {
     onSave({ ...currentPage, title, content });
   };
 
+  const toggleDrawing = () => {
+    setIsDrawing(!isDrawing);
+  };
+
+  const insertCodeBlock = () => {
+    const codeBlock = "\n```\nYour code here\n```\n";
+    setContent(content + codeBlock);
+  };
+
   if (!currentPage) return <div>Select a page to edit</div>;
 
   return (
@@ -41,6 +52,9 @@ function Editor({ currentPage, onSave }) {
         className="content-textarea"
       />
       <button onClick={handleSave}>Save</button>
+      <button onClick={toggleDrawing}>Draw</button>
+      <button onClick={insertCodeBlock}>Insert Code Block</button>
+      {isDrawing && <DrawingCanvas currentPage={currentPage} saveDrawing={saveDrawing} closeDrawing={toggleDrawing} />}
     </div>
   );
 }

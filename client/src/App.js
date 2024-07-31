@@ -89,6 +89,13 @@ function App() {
     }
   };
 
+  const saveDrawing = async (drawingDataUrl) => {
+    if (currentPage) {
+      const updatedPage = { ...currentPage, drawing: drawingDataUrl };
+      handleSavePage(updatedPage);
+    }
+  };
+
   return (
     <div className="App">
       <Sidebar
@@ -98,7 +105,7 @@ function App() {
         onDeletePage={handleDeletePage}
       />
       {currentPage ? (
-        <Editor currentPage={currentPage} onSave={handleSavePage} />
+        <Editor currentPage={currentPage} onSave={handleSavePage} saveDrawing={saveDrawing} />
       ) : (
         <div className="page-cards-container">
           {pages.map(page => (

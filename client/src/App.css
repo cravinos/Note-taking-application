@@ -148,4 +148,26 @@ body {
     color: #7f8c8d;
   }
   
+  .search-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+  }
+  /* Button Styles */
+.editor button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .editor button:hover {
+    background-color: #2980b9;
+  }
   
