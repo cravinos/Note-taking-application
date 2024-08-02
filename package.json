@@ -10,9 +10,12 @@
         "concurrently": "^6.0.0"
     },
     "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "jsonwebtoken": "^9.0.2",
         "konva": "^9.3.14",
         "lodash": "^4.17.21",
         "react-konva": "^18.2.10",
+        "react-router-dom": "^6.26.0",
         "socket.io-client": "^4.7.5",
         "ws": "^8.18.0"
     }

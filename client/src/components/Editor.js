@@ -23,16 +23,49 @@ function Editor({ currentPage, onSave, saveDrawing }) {
 
   const handleSave = () => {
     onSave({ ...currentPage, title, content });
+    document.getElementById("save").innerHTML="Saving...";
+    setTimeout(function(){
+      document.getElementById("save").innerHTML="Save"},1000)
+    
   };
 
+  
   const toggleDrawing = () => {
     setIsDrawing(!isDrawing);
+    if(isDrawing){
+    document.getElementById("draw").addEventListener("click", function(){
+      document.getElementById("draw").innerHTML = "Drawing...";
+      
+    })} else{
+      document.getElementById("draw").addEventListener("click", function(){
+        document.getElementById("draw").innerHTML = "Draw";
+    })}
   };
 
   const insertCodeBlock = () => {
     const codeBlock = "\n```\nYour code here\n```\n";
     setContent(content + codeBlock);
   };
+
+  const selectOption = (e) => {
+    const selectedValue = e.target.value;
+    document.getElementById("output").innerHTML = "The selected value is " + selectedValue;
+    setContent(content + selectedValue + " ");
+  };
+
+  const options = [
+   "😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇",
+    "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚",
+    "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓", "😎", "🤩",
+    "🥳", "😏", "😒", "😞", "😔", "😟", "😕", "🙁", "😣", "😖",
+    "😫", "😩", "🥺", "😢", "😭", "😤", "😠", "😡", "🤬", "🤯",
+    "😳", "🥵", "🥶", "😱", "😨", "😰", "😥", "😓", "🤗", "🤔",
+    "🤭", "🤫", "🤥", "😶", "😐", "😑", "😬", "🙄", "😯", "😦",
+    "😧", "😮", "😲", "🥱", "😴", "🤤", "😪", "😵", "🤐", "🥴",
+    "😷", "🤒", "🤕", "🤑", "🤠", "😈", "👿", "👹", "👺", "🤡",
+    "💩", "👻", "💀", "☠️", "👽", "👾", "🤖", "🎃", "😺", "😸",
+    "😹", "😻", "😼", "😽", "🙀", "😿", "😾"
+  ];
 
   if (!currentPage) return <div>Select a page to edit</div>;
 
@@ -51,9 +84,19 @@ function Editor({ currentPage, onSave, saveDrawing }) {
         placeholder="Start typing..."
         className="content-textarea"
       />
-      <button onClick={handleSave}>Save</button>
-      <button onClick={toggleDrawing}>Draw</button>
+      {/* <button class="sharebutton">Share</button> */}
+      <button onClick={handleSave} id="save">Save</button>
+      <button onClick={toggleDrawing} id="draw">Draw</button>
       <button onClick={insertCodeBlock}>Insert Code Block</button>
+      <button>
+        EMOJIS WIP
+        <select id="dropdown" onChange={selectOption}>
+          {options.map((option, index) => (
+            <option key={index} value={option}>{option}</option>
+          ))}
+        </select>
+        <div id="output">The selected value is TEST.</div>
+      </button>
       {isDrawing && <DrawingCanvas currentPage={currentPage} saveDrawing={saveDrawing} closeDrawing={toggleDrawing} />}
     </div>
   );
